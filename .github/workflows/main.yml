@@ -41,6 +41,23 @@ jobs:
         with: 
           name: code
           path: .
+  linter:
+    name: linter
+    runs-on: ubuntu-latest
+    needs: [build-test-upload]
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v4
+        with:
+          name: code
+          path: .
+      - name: lint code
+        uses: super-linter/super-linter/slim@v7
+        env:
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true      
   build-docker:
     name: build-docker
     runs-on: ubuntu-latest
@@ -53,8 +70,6 @@ jobs:
         with:
           name: code
           path: .
-      - name: ls
-        run: ls -la ci
       - name: build docker image
         run: bash ci/build-docker.sh
       - name: push docker image
