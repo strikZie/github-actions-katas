@@ -15,7 +15,8 @@ jobs:
     name: goofing
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
+      uses: actions/checkout@v5- name: Checkout
         uses: actions/checkout@v5
 
       - name: one-line script
@@ -51,6 +52,8 @@ jobs:
         with:
           name: code
           path: .
+      - name: Checkout
+        uses: actions/checkout@v5
       - name: lint code
         uses: super-linter/super-linter/slim@v8
         env:
