@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+  workflow_dispatch:
+
+jobs:
+  build: 
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: one-line script
+        run: echo Hello NEW YORK CITY
+
+      - name: multi-line script
+        run: |
+          echo May thy knife chip and shatter
+          echo lisan al ghaib
