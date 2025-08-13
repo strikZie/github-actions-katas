@@ -1,5 +1,8 @@
 name: CI
-
+env: # Set the secret as an input
+  docker_username: ${{ github.actor }} 
+  docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
+  GIT_COMMIT: ${{ github.sha }}
 on:
   push:
     branches: main
@@ -37,9 +40,16 @@ jobs:
     permissions:
       packages: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - name: Download code
+        uses: actions/download-artifact@v4
+        with:
+          name: code
+          path: .
+      - name: ls
+        run: ls -la ci
       - name: build docker image
-        run: ci/build-docker.sh
+        run: bash ci/build-docker.sh
+      - name: push docker image
+        run: bash ci/push-docker.sh
         
     
