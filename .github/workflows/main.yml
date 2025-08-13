@@ -16,9 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-      uses: actions/checkout@v5- name: Checkout
         uses: actions/checkout@v5
-
       - name: one-line script
         run: echo Hello NEW YORK CITY
 
